@@ -4,6 +4,7 @@ import { ArrowRight, Sparkles, ShieldCheck, Truck, Clock, ShoppingBag } from 'lu
 import { productService } from '../../services/productService';
 import ProductCard from '../../components/product/ProductCard';
 import Spinner from '../../components/common/Spinner';
+import MotionBackground from '../../components/common/MotionBackground';
 
 const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
@@ -36,9 +37,9 @@ const HomePage = () => {
   return (
     <div className="space-y-16 pb-16">
       
-      {/* Hero Banner Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white py-16 sm:py-24 rounded-b-[2.5rem] shadow-2xl">
-        <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#6366f1_1px,transparent_1px)] [background-size:16px_16px] pointer-events-none" />
+      {/* Hero Banner Section with Motion Graphics Background */}
+      <section className="relative overflow-hidden text-white py-16 sm:py-24 rounded-b-[2.5rem] shadow-2xl border-b border-indigo-500/20">
+        <MotionBackground />
         
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -91,15 +92,18 @@ const HomePage = () => {
             </div>
 
             {/* Hero Visual Mockup */}
-            <div className="relative mx-auto lg:mx-0 max-w-md lg:max-w-none">
-              <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl group">
+            <div className="relative mx-auto lg:mx-0 max-w-md lg:max-w-none group">
+              {/* Dynamic Ambient Neon Aura Glow */}
+              <div className="absolute -inset-1.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 rounded-[2rem] blur-2xl opacity-40 group-hover:opacity-75 transition-all duration-700 animate-pulse pointer-events-none" />
+
+              <div className="relative rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-slate-900/40 backdrop-blur-sm">
                 <img
                   src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=800"
                   alt="Aura Pro Headphones"
                   className="w-full h-[400px] object-cover group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-slate-900/60 backdrop-blur-xl border border-white/20 shadow-xl">
                   <div className="flex items-center justify-between">
                     <div>
                       <span className="text-[10px] font-bold uppercase tracking-wider text-indigo-300">
@@ -110,7 +114,7 @@ const HomePage = () => {
                     </div>
                     <Link
                       to="/products/aura-pro-anc-headphones"
-                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-colors"
+                      className="px-4 py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-indigo-600/30 hover:scale-105"
                     >
                       View
                     </Link>
