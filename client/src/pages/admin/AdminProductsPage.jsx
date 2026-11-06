@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Search, Package, Image as ImageIcon } from 'lucide-react';
+import { Plus, Edit2, Trash2, Search, Package, Image as ImageIcon, Upload, Loader2 } from 'lucide-react';
 import { adminService } from '../../services/adminService';
 import { productService } from '../../services/productService';
 import { formatCurrency } from '../../utils/formatCurrency';
@@ -21,6 +21,7 @@ const AdminProductsPage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -87,6 +88,27 @@ const AdminProductsPage = () => {
       isFeatured: prod.isFeatured || false
     });
     setIsModalOpen(true);
+  };
+
+  const handleFileUpload = async (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const uploadFormData = new FormData();
+    uploadFormData.append('image', file);
+
+    setIsUploadingImage(true);
+    try {
+      const res = await adminService.uploadImage(uploadFormData);
+      if (res.success) {
+        setFormData((prev) => ({ ...prev, imageUrl: res.url }));
+        addToast('Image uploaded successfully!');
+      }
+    } catch (err) {
+      addToast(err.response?.data?.message || 'Failed to upload image file', 'error');
+    } finally {
+      setIsUploadingImage(false);
+    }
   };
 
   const handleSaveProduct = async (e) => {
@@ -336,12 +358,43 @@ const AdminProductsPage = () => {
             />
           </div>
 
-          <Input
-            label="Image URL"
-            value={formData.imageUrl}
-            onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
-            placeholder="https://images.unsplash.com/photo-..."
-          />
+          <div>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="text-xs font-semibold uppercase tracking-wider text-slate-600">
+                Product Image (URL or Upload from Computer)
+              </label>
+              <label className="text-xs font-semibold text-indigo-600 hover:text-indigo-700 cursor-pointer flex items-center gap-1">
+                {isUploadingImage ? (
+                  <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                ) : (
+                  <Upload className="w-3.5 h-3.5" />
+                )}
+                <span>{isUploadingImage ? 'Uploading...' : 'Choose Local File'}</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileUpload}
+                  className="hidden"
+                  disabled={isUploadingImage}
+                />
+              </label>
+            </div>
+            <Input
+              value={formData.imageUrl}
+              onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
+              placeholder="https://images.unsplash.com/photo-... or upload from PC"
+            />
+            {formData.imageUrl && (
+              <div className="mt-2 flex items-center gap-3 p-2 bg-slate-50 rounded-xl border border-slate-200">
+                <img
+                  src={formData.imageUrl}
+                  alt="Preview"
+                  className="w-12 h-12 rounded-lg object-cover border border-slate-200"
+                />
+                <span className="text-[11px] text-slate-500 truncate flex-1">{formData.imageUrl}</span>
+              </div>
+            )}
+          </div>
 
           <div>
             <label className="block text-xs font-semibold uppercase tracking-wider text-slate-600 mb-1.5">
@@ -385,3 +438,4 @@ const AdminProductsPage = () => {
 };
 
 export default AdminProductsPage;
+

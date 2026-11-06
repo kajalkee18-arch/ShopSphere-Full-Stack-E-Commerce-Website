@@ -26,3 +26,4 @@ const ProductGrid = ({ products = [] }) => {
 };
 
 export default ProductGrid;
+

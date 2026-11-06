@@ -12,3 +12,4 @@ router.route('/toggle/:productId')
   .post(toggleWishlist);
 
 module.exports = router;
+

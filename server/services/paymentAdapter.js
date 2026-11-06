@@ -77,3 +77,4 @@ class PaymentAdapter {
 }
 
 module.exports = new PaymentAdapter();
+

@@ -17,3 +17,4 @@ const Spinner = ({ size = 'md', className = '', label = 'Loading...' }) => {
 };
 
 export default Spinner;
+

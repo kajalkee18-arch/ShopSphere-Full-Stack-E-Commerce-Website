@@ -42,3 +42,4 @@ cartSchema.pre('save', function (next) {
 });
 
 module.exports = mongoose.model('Cart', cartSchema);
+

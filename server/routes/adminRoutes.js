@@ -28,3 +28,4 @@ router.get('/users', getAllUsers);
 router.put('/users/:id/status', toggleUserStatus);
 
 module.exports = router;
+

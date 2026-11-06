@@ -28,3 +28,4 @@ router.route('/:id')
   .delete(protect, adminOnly, deleteProduct);
 
 module.exports = router;
+

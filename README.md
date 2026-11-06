@@ -112,3 +112,4 @@ Full project specifications are stored in the root directory:
 
 ## 📄 License
 MIT License. Built for ShopSphere E-Commerce.
+
