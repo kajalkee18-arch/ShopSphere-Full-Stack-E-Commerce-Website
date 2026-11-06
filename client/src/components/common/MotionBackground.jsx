@@ -156,3 +156,4 @@ const MotionBackground = ({ className = '', variant = 'hero' }) => {
 };
 
 export default MotionBackground;
+

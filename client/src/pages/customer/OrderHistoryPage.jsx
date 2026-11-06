@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Package, Calendar, ChevronRight, Clock, CheckCircle2, Truck, AlertCircle } from 'lucide-react';
+import { Package, Calendar, ChevronRight, Clock, CheckCircle2, Truck, AlertCircle, Printer } from 'lucide-react';
 import { orderService } from '../../services/orderService';
 import { formatCurrency } from '../../utils/formatCurrency';
 import { formatDate } from '../../utils/formatDate';
@@ -104,6 +104,14 @@ const OrderHistoryPage = () => {
                   </p>
                 </div>
                 <div>{getStatusBadge(order.orderStatus)}</div>
+                <button
+                  type="button"
+                  onClick={() => window.print()}
+                  className="p-2 rounded-xl text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 border border-slate-200 transition-colors"
+                  title="Print Order Receipt"
+                >
+                  <Printer className="w-4 h-4" />
+                </button>
               </div>
             </div>
 
